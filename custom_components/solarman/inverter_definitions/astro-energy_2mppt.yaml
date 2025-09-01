@@ -31,7 +31,6 @@ parameters:
         validation:
           min: 0
           max: 4000
-          invalidate_all:
         icon: "mdi:solar-power-variant"
 
       - name: PV1 Power
@@ -111,7 +110,7 @@ parameters:
         icon: "mdi:solar-power-variant"
 
       - name: "Energy"
-        persistent:
+        persistent: true
         class: "energy"
         state_class: "total_increasing"
         uom: "kWh"
@@ -160,8 +159,8 @@ parameters:
 
       - name: "Temperature"
         class: "temperature"
-        uom: "°C"
         state_class: "measurement"
+        uom: "°C"
         scale: 0.01
         rule: 1
         registers: [0x0016]
@@ -169,5 +168,9 @@ parameters:
   - group: Info
     items:
       - name: "MPPTs"
+        class: null            # Schlüssel existiert → kein KeyError; None = keine device_class
+        state_class: "measurement"
+        digits: 0
+        scale: 1
         rule: 1
         registers: [0x0017]
